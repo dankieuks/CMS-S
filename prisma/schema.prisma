@@ -11,9 +11,8 @@ datasource db {
 model User {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
   email      String     @unique
-  password   String
-  name       String
-  username   String
+  password   String     @unique
+  name       String     @unique
   role       UserRole   @default(STAFF)
   lastLogin  DateTime?
   orders     Order[]
@@ -30,7 +29,7 @@ enum UserRole {
 
 model Salary {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String   @db.ObjectId
   baseSalary   Float
   bonus        Float    @default(0)
@@ -55,7 +54,7 @@ model Order {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   status      OrderStatus
   totalAmount Float
-  user        User        @relation(fields: [userId], references: [id])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String      @db.ObjectId
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -73,7 +72,7 @@ model Activity {
   description String
   startDate   DateTime
   endDate     DateTime
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @db.ObjectId
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
