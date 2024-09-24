@@ -1,4 +1,8 @@
 // schema.prisma
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,8 +15,8 @@ datasource db {
 model User {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
   email      String     @unique
-  password   String     @unique
-  name       String     @unique
+  password   String
+  name       String
   role       UserRole   @default(STAFF)
   lastLogin  DateTime?
   orders     Order[]

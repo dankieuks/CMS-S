@@ -15,7 +15,6 @@ export class LoginUserDto {
     password: string;
 }
 export class UpdateUserDto {
-
     @IsOptional()
     @IsString()
     name?: string;

@@ -18,12 +18,10 @@ export class UserController {
     @Patch(':id')
     async updateUser(@Param('id') id: string, @Body() updateUserData: UpdateUserDto
     ): Promise<User> {
-        const updatedUser = await this.userService.updateUser(id, updateUserData);
-        if (!updatedUser) {
-            throw new NotFoundException(`User with ID ${id} not found`);
-        }
-        return updatedUser;
+        return this.userService.updateUser(id, updateUserData);
+
     }
+
 
     @Delete(':id')
     async deleteUser(@Param('id') id: string): Promise<User> {

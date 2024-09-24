@@ -9,11 +9,15 @@ import { UserController } from './modules/user/user.controller';
 import { UserService } from './modules/user/user.service';
 import { ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
+import { ProductModule } from './modules/product/product.module';
+import { OrderService } from './modules/order/order.service';
+import { OrderModule } from './modules/order/order.module';
+import { SalaryModule } from './modules/salary/salary.module';
 
 
 
 @Module({
-  imports: [UserModule, PrismaModule, AuthModule],
+  imports: [UserModule, PrismaModule, AuthModule, ProductModule, OrderModule, SalaryModule],
   controllers: [AppController, UserController],
   providers: [
     AppService,
@@ -23,6 +27,7 @@ import { APP_PIPE } from '@nestjs/core';
       provide: APP_PIPE,                           // Cấu hình ValidationPipe để kiểm tra dữ liệu
       useClass: ValidationPipe,
     },
+    OrderService,
   ],
 })
 export class AppModule { }
